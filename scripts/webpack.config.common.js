@@ -11,13 +11,18 @@ module.exports = {
         index: [
             'webpack-dev-server/client?http://127.0.0.1:3000/',
             'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
             path.resolve(rootPath, 'src/entries/index')
         ],
         detail: [
             'webpack-dev-server/client?http://127.0.0.1:3000/',
             'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
             path.resolve(rootPath, 'src/entries/detail')
         ],
+        common: [
+            'babel-polyfill'
+        ]
     },
 
     output: {
@@ -39,6 +44,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
 
         new webpack.optimize.CommonsChunkPlugin({
             name: "common",

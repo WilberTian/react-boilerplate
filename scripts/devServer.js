@@ -4,7 +4,8 @@ const webpackConfig = require('./webpack.config');
 
 const devServerOptions = {
     contentBase: [
-    	'dist'
+    	'dist',
+      'mock'
     ],
     hot: true,
     historyApiFallback: true,

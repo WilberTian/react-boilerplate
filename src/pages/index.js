@@ -1,10 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
-
+import render  from '../utils/render';
+import routes from '../routes/index';
 
 export default () => {
-	ReactDOM.render(
-		<h1>Hello, World! This is index page!</h1>,
-		document.getElementById('root')
-	);
-};
+    return render(routes);
+}
