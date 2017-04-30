@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ContactListComponent from '../components/ContactListComponent';
 import * as actions from '../redux/actions/contactActions';
 
-import contactRequests from '../requests/contactRequests';
+import contactService from '../services/contactService';
 
 class ContactListContainer extends Component {
 
@@ -27,7 +27,7 @@ class ContactListContainer extends Component {
 
     async _getContactList() {
         let { getContactList } = this.props.contactActions;
-        let result = await contactRequests.getContactList();
+        let result = await contactService.getContactList();
 
         getContactList(result.data.list);
     }
