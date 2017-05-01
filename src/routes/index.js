@@ -1,5 +1,3 @@
-import {Route} from 'react-router';
-
 import App from '../containers/common/App';
 import ContactInfoContainer from '../containers/ContactInfoContainer';
 import ContactListContainer from '../containers/ContactListContainer';

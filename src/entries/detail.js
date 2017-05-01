@@ -1,6 +1,6 @@
 import detailPage from '../pages/detail';
 
-new detailPage();
+detailPage();
 
 if (module.hot) {
     module.hot.accept('../pages/detail', () => {

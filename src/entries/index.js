@@ -1,6 +1,6 @@
 import indexPage from '../pages/index';
 
-new indexPage();
+indexPage();
 
 if (module.hot) {
     module.hot.accept('../pages/index', () => {

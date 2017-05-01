@@ -1,42 +1,44 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import ContactListComponent from '../components/ContactListComponent';
 import * as actions from '../redux/actions/contactActions';
-
 import contactService from '../services/contactService';
 
 class ContactListContainer extends Component {
-
-    constructor(props) {
-        super(props);
-    }
+    static propTypes = {
+        contactState: PropTypes.object.isRequired,
+        contactActions: PropTypes.object.isRequired
+    };
 
     componentDidMount() {
         this._getContactList();
     }
 
-    render() {
-        let { contactState, contactActions } = this.props;
-
-        return (
-            <ContactListComponent contactList={contactState.contactList} contactActions={contactActions}/>
-        )
-    }
-
     async _getContactList() {
-        let { getContactList } = this.props.contactActions;
-        let result = await contactService.getContactList();
+        const { getContactList } = this.props.contactActions;
+        const result = await contactService.getContactList();
 
         getContactList(result.data.list);
     }
 
+    render() {
+        const { contactState, contactActions } = this.props;
+
+        return (
+            <ContactListComponent contactList={contactState.contactList} contactActions={contactActions} />
+        );
+    }
+
 }
 
-const mapStateToProps = state => ({ contactState: state.contactReducer });
+const mapStateToProps = (state) => {
+    return { contactState: state.contactReducer };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         contactActions: bindActionCreators(actions, dispatch)
     };

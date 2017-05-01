@@ -34,9 +34,17 @@ module.exports = {
     module: {
         rules: [
             {
+                enforce: 'pre',
+                test: /\.js$/,
+                include: [
+                    path.resolve(rootPath, 'src'),
+                ],
+                loader: 'eslint-loader',
+            },
+            {
                 test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: ['babel-loader']
             }
         ]
     },
@@ -64,6 +72,12 @@ module.exports = {
             chunks: ['common', 'detail']
         }),
 
-    ]
+    ],
+
+    resolve: {
+        extensions: ['*', '.js', '.css', '.html'],
+        modules: ['src', 'node_modules'],
+        alias: { }
+    }
 };
 
