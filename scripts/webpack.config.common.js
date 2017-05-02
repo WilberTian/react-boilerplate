@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
 
 const rootPath = path.resolve(__dirname, '..');
 
@@ -62,16 +64,20 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             filename: 'index.html',                                        
-            template: rootPath+'/src/htmls/index.html',
+            template: rootPath + '/src/htmls/index.html',
             chunks: ['common', 'index']
         }),
 
         new HtmlWebpackPlugin({
             filename: 'detail.html',                                        
-            template: rootPath+'/src/htmls/index.html',
+            template: rootPath + '/src/htmls/index.html',
             chunks: ['common', 'detail']
         }),
 
+        new ProgressBarPlugin({
+            format: '  build [:bar] ' + ':percent' + ' (:elapsed seconds)',
+            clear: false
+        })
     ],
 
     resolve: {

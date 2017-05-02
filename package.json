@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "clean": "rimraf dist",
-    "build:webpack": "NODE_ENV=production webpack --config ./scripts/webpack.config.js --progress --color",
+    "build:webpack": "NODE_ENV=production webpack --config ./scripts/webpack.config.js",
     "build": "npm run clean && npm run build:webpack",
     "dev": "NODE_ENV=development node ./scripts/devServer.js",
     "start": "npm run dev"
@@ -33,6 +33,7 @@
     "eslint-plugin-react": "^6.10.3",
     "html-webpack-plugin": "^2.28.0",
     "isomorphic-fetch": "^2.2.1",
+    "progress-bar-webpack-plugin": "^1.9.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dev-utils": "^0.5.2",
