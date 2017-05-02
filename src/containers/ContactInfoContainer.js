@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import ContactInfoComponent from '../components/ContactInfoComponent';
 
 class ContactInfoContainer extends Component {
+    static defaultProps = {
+        params: {}
+    };
     static propTypes = {
-        params: PropTypes.string
+        params: PropTypes.object
     };
 
     render() {
