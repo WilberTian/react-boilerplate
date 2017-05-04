@@ -1,9 +1,22 @@
-import { GET_CONTACT_LIST, ADD_CONTACT, UPDATE_CONTACT, SELECT_CONTACT } from '../actions/contactActions';
+import {
+    GET_CONTACT_LIST,
+    GET_CONTACT_DETAIL,
+    CLEAR_CONTACT_DETAIL
+} from '../../configs/actions';
+
 
 const initialState = {
     contactList: [],
-    selectedContact: {}
+    selectedContact: {
+        id: null,
+        name: '',
+        gender: '',
+        birthday: '',
+        phone: '',
+        address: ''
+    }
 };
+
 
 const contactReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -13,14 +26,17 @@ const contactReducer = (state = initialState, action) => {
                 contactList: action.contactList
             };
 
-        case ADD_CONTACT:
-            return state - 1;
+        case GET_CONTACT_DETAIL:
+            return {
+                ...state,
+                selectedContact: action.contactDetail
+            };
 
-        case UPDATE_CONTACT:
-            return state - 1;
-
-        case SELECT_CONTACT:
-            return state;
+        case CLEAR_CONTACT_DETAIL:
+            return {
+                ...state,
+                selectedContact: initialState.selectedContact
+            };
 
         default:
             return state;

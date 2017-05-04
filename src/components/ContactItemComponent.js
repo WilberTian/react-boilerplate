@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
+
+import * as events from '../configs/events';
 
 export default class ContactItemComponent extends Component {
-    static propTypes = {
-        contactItem: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            phone: PropTypes.string.isRequired
-        }).isRequired
-    };
+
+    _showDetail() {
+        const { id } = this.props.contactItem;
+        PubSub.publish(events.NAV_EVENT, `contact-detail/${id}`);
+    }
 
     render() {
         const { id, name, phone } = this.props.contactItem;
 
         return (
             <div>
-                {id} - {name} - {phone}
+                <span>{id}</span>
+                <span>{name}</span>
+                <span>{phone}</span>
+                <button onClick={::this._showDetail}>Detail</button>
             </div>
         );
     }

@@ -1,21 +1,27 @@
 import App from '../containers/common/App';
 import ContactInfoContainer from '../containers/ContactInfoContainer';
 import ContactListContainer from '../containers/ContactListContainer';
+import ContactFormContainer from '../containers/ContactFormContainer';
+import NotFound from './NotFound';
 
-
-const ContactDisplayRoute = {
-    path: 'contact-display/:id',
+const ContactDetailRoute = {
+    path: 'contact-detail/:id',
     component: ContactInfoContainer,
 };
 
 const ContactAddRoute = {
     path: 'contact-add',
-    component: ContactInfoContainer,
+    component: ContactFormContainer,
 };
 
 const ContactEditRoute = {
     path: 'contact-edit/:id',
-    component: ContactInfoContainer,
+    component: ContactFormContainer,
+};
+
+const notFountRoute = {
+    path: '*',
+    component: NotFound,
 };
 
 const route = {
@@ -25,9 +31,10 @@ const route = {
         component: ContactListContainer,
     },
     childRoutes: [
-        ContactDisplayRoute,
+        ContactDetailRoute,
         ContactAddRoute,
-        ContactEditRoute
+        ContactEditRoute,
+        notFountRoute
     ]
 };
 

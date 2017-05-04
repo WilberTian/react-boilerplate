@@ -1,3 +1,4 @@
+const url = require('url');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config');
@@ -11,6 +12,17 @@ const devServerOptions = {
     historyApiFallback: true,
     stats: {
         colors: true,
+    },
+    
+    // use proxy for POST request
+    proxy: {
+        "/api": {
+            target: "http://localhost:3000",
+            pathRewrite(path, option) {
+                option.method = 'GET';
+                return path.substr(4);
+            }
+        }
     }
 };
 

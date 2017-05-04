@@ -70,7 +70,7 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             filename: 'detail.html',                                        
-            template: rootPath + '/src/htmls/index.html',
+            template: rootPath + '/src/htmls/detail.html',
             chunks: ['common', 'detail']
         }),
 

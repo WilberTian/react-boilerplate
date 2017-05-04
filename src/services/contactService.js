@@ -1,9 +1,35 @@
-import fetch from 'isomorphic-fetch';
+import fetch from '../utils/fetch';
 
 export default {
     getContactList: async () => {
-        const response = await fetch('/getContactList');
-        const result = response.json();
-        return result;
+        const fetchConfig = {
+            url: '/api/getContactList'
+        };
+
+        const data = await fetch(fetchConfig);
+        return data;
+    },
+
+    getContactDetail: async (id) => {
+        const fetchConfig = {
+            url: '/api/getContactDetail',
+            data: {
+                contactId: id
+            }
+        };
+
+        const data = await fetch(fetchConfig);
+        return data;
+    },
+
+    saveContact: async (contact) => {
+        const fetchConfig = {
+            url: '/api/saveContact',
+            method: 'POST',
+            data: contact
+        };
+
+        const data = await fetch(fetchConfig);
+        return data;
     }
 };

@@ -6,21 +6,20 @@ import PubSub from 'pubsub-js';
 import * as _contactActions from '../redux/actions/contactActions';
 import * as _routeActions from '../redux/actions/routeActions';
 import * as events from '../configs/events';
-import * as actions from '../configs/actions';
 
-import ContactListComponent from '../components/ContactListComponent';
+import ContactFormComponent from '../components/ContactFormComponent';
 
-class ContactListContainer extends Component {
-
+class ContactFormContainer extends Component {
     componentWillMount() {
+        const { goBack } = this.props.routeActions;
+
+        PubSub.subscribe(events.GO_BACK, () => {
+            goBack();
+        });
+
         PubSub.subscribe(events.NAV_EVENT, (event, path) => {
             const { push } = this.props.routeActions;
             push(path);
-        });
-
-        PubSub.subscribe(actions.GET_CONTACT_LIST, (event, data) => {
-            const { getContactList } = this.props.contactActions;
-            getContactList(data);
         });
     }
 
@@ -28,24 +27,18 @@ class ContactListContainer extends Component {
         PubSub.clearAllSubscriptions();
     }
 
-    _navAddContact() {
-        PubSub.publish(events.NAV_EVENT, 'contact-add');
-    }
-
     render() {
-        const { contactList } = this.props;
+        const { contactDetail } = this.props;
 
         return (
-            <div>
-                <button onClick={::this._navAddContact}>Add</button>
-                <ContactListComponent contactList={contactList} />
-            </div>
+            <ContactFormComponent contactDetail={contactDetail} />
         );
     }
+
 }
 
 const mapStateToProps = (state) => {
-    return { contactList: state.contactReducer.contactList };
+    return { contactDetail: state.contactReducer.selectedContact };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -55,4 +48,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactFormContainer);

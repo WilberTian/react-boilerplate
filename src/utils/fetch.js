@@ -1,0 +1,63 @@
+import url from 'url';
+import fetch from 'isomorphic-fetch';
+
+import delay from './delay';
+
+const SUCCESS_CODE_LOWER_BOUND = 200;
+const SUCCESS_CODE_HIGHER_BOUND = 300;
+
+
+const sendRequest = async (config) => {
+    let response = null;
+    const {
+        method = 'GET',
+        data,
+        url: requestUrl,
+    } = config;
+
+    const requestMethod = method.toUpperCase();
+
+    switch (requestMethod) {
+        case 'GET':
+            response = await fetch(url.format({
+                pathname: requestUrl,
+                query: data,
+            }));
+            break;
+        case 'POST':
+            response = await fetch(requestUrl, {
+                method: requestMethod,
+                body: JSON.stringify(data),
+            });
+            break;
+        default:
+            break;
+    }
+
+    return response;
+};
+
+const timeoutPromise = async (timeout) => {
+    await delay(timeout);
+    throw new Error(timeout);
+};
+
+export default async (config) => {
+    const {
+        timeout = 60000,
+        ...fetchConfig
+    } = config;
+
+    const response = await Promise.race([timeoutPromise(timeout), sendRequest(fetchConfig)]);
+
+    if (response.status < SUCCESS_CODE_LOWER_BOUND || response.status >= SUCCESS_CODE_HIGHER_BOUND) {
+        throw new Error(response);
+    } else {
+        const result = await response.json();
+        if (result.code !== 0) {
+            throw new Error(result);
+        } else {
+            return result.data;
+        }
+    }
+};

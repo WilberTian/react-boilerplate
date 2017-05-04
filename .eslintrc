@@ -37,6 +37,12 @@
         "react/forbid-prop-types": [
             "off"
         ],
+        "react/prop-types": [
+            "off"
+        ],
+        "react/no-unused-prop-types": [
+            "off"
+        ],
         "arrow-parens": [
             "error",
             "always"
@@ -45,6 +51,7 @@
             "error",
             "always"
         ],
+        "class-methods-use-this": "off",
         "comma-dangle": "off",
         "react/jsx-first-prop-new-line": "off",
         "react/jsx-filename-extension": "off",

@@ -1,34 +1,21 @@
-export const GET_CONTACT_LIST = 'GET_CONTACT_LIST';
-export const ADD_CONTACT = 'ADD_CONTACT';
-export const UPDATE_CONTACT = 'UPDATE_CONTACT';
-export const SELECT_CONTACT = 'SELECT_CONTACT';
+import * as actions from '../../configs/actions';
 
 export const getContactList = (contactList) => {
     return {
-        type: GET_CONTACT_LIST,
+        type: actions.GET_CONTACT_LIST,
         contactList
     };
 };
 
-export const addContact = (name, phone) => {
+export const getContactDetail = (contactDetail) => {
     return {
-        type: ADD_CONTACT,
-        name,
-        phone
+        type: actions.GET_CONTACT_DETAIL,
+        contactDetail
     };
 };
 
-export const updateContact = (id, contact) => {
+export const clearContactDetail = () => {
     return {
-        type: UPDATE_CONTACT,
-        id,
-        contact
-    };
-};
-
-export const selectContact = (id) => {
-    return {
-        type: SELECT_CONTACT,
-        id
+        type: actions.CLEAR_CONTACT_DETAIL
     };
 };

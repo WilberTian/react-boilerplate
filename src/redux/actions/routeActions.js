@@ -1,17 +1,17 @@
 import { push as _push, replace as _replace, goBack as _goBack, goForward as _goForward } from 'react-router-redux';
 
 export const push = (location) => {
-    _push(location);
+    return _push(location);
 };
 
 export const replace = (location) => {
-    _replace(location);
+    return _replace(location);
 };
 
 export const goBack = () => {
-    _goBack();
+    return _goBack();
 };
 
 export const goForward = () => {
-    _goForward();
+    return _goForward();
 };
