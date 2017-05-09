@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PubSub from 'pubsub-js';
@@ -10,7 +10,7 @@ import * as actions from '../configs/actions';
 
 import ContactListComponent from '../components/ContactListComponent';
 
-class ContactListContainer extends Component {
+class ContactListContainer extends PureComponent {
 
     componentWillMount() {
         PubSub.subscribe(events.NAV_EVENT, (event, path) => {

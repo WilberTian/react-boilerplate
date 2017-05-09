@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PubSub from 'pubsub-js';
 
 import contactService from '../services/contactService';
 import ContactItemComponent from './ContactItemComponent';
 import * as actions from '../configs/actions';
 
-export default class ContactListComponent extends Component {
+export default class ContactListComponent extends PureComponent {
 
     componentDidMount() {
         this._getContactList();

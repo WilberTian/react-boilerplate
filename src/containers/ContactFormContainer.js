@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PubSub from 'pubsub-js';
@@ -9,7 +9,7 @@ import * as events from '../configs/events';
 
 import ContactFormComponent from '../components/ContactFormComponent';
 
-class ContactFormContainer extends Component {
+class ContactFormContainer extends PureComponent {
     componentWillMount() {
         const { goBack } = this.props.routeActions;
 

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PubSub from 'pubsub-js';
 
 import contactService from '../services/contactService';
 import * as events from '../configs/events';
 
-export default class ContactFormComponent extends Component {
+export default class ContactFormComponent extends PureComponent {
     constructor(props) {
         super(props);
 

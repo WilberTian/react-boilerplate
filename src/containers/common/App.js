@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class App extends Component {
+class App extends PureComponent {
     static propTypes = {
         children: PropTypes.object.isRequired
     };

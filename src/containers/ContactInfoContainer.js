@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,7 @@ import * as _routeActions from '../redux/actions/routeActions';
 import contactService from '../services/contactService';
 
 
-class ContactInfoContainer extends Component {
+class ContactInfoContainer extends PureComponent {
 
     componentDidMount() {
         this._getContactDetail();

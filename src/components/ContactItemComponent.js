@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PubSub from 'pubsub-js';
 
 import * as events from '../configs/events';
 
-export default class ContactItemComponent extends Component {
+export default class ContactItemComponent extends PureComponent {
 
     _showDetail() {
         const { id } = this.props.contactItem;
