@@ -7,6 +7,11 @@ const SUCCESS_CODE_LOWER_BOUND = 200;
 const SUCCESS_CODE_HIGHER_BOUND = 300;
 
 
+// enable cookie in the request
+const basicFetchOptions = {
+    credentials: 'include',
+};
+
 const sendRequest = async (config) => {
     let response = null;
     const {
@@ -22,10 +27,13 @@ const sendRequest = async (config) => {
             response = await fetch(url.format({
                 pathname: requestUrl,
                 query: data,
-            }));
+            }), {
+                ...basicFetchOptions,
+            });
             break;
         case 'POST':
             response = await fetch(requestUrl, {
+                ...basicFetchOptions,
                 method: requestMethod,
                 body: JSON.stringify(data),
             });
@@ -51,6 +59,7 @@ export default async (config) => {
     const response = await Promise.race([timeoutPromise(timeout), sendRequest(fetchConfig)]);
 
     if (response.status < SUCCESS_CODE_LOWER_BOUND || response.status >= SUCCESS_CODE_HIGHER_BOUND) {
+        // fetch will not goto reject path when server response 400, 500
         throw new Error(response);
     } else {
         const result = await response.json();
