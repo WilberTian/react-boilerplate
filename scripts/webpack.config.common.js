@@ -6,6 +6,18 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const rootPath = path.resolve(__dirname, '..');
 
+
+const postCSSLoader = {
+   loader: "postcss-loader",
+   options: {
+        plugins: function() {
+            return [
+                require('autoprefixer')
+            ];
+       }
+    }
+};
+
 module.exports = {
     context: rootPath,
 
@@ -47,6 +59,39 @@ module.exports = {
                 test: /\.js?$/,
                 exclude: /node_modules/,
                 loader: ['babel-loader']
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                        name: 'images/[name]-[hash].[ext]',
+                    }
+                }]
+            },
+            {
+                test: /\.css$/,
+                include: [
+                    path.resolve(rootPath, 'src'),
+                ],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    postCSSLoader
+                ]
+            },
+            {
+                test: /\.less$/,
+                include: [
+                    path.resolve(rootPath, 'src'),
+                ],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    postCSSLoader,
+                    'less-loader'
+                ]
             }
         ]
     },

@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
-import PubSub from 'pubsub-js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as contactActions from '../redux/actions/contactActions';
+import * as routeActions from '../redux/actions/routeActions';
 import contactService from '../services/contactService';
-import * as events from '../configs/events';
 
-export default class ContactFormComponent extends PureComponent {
+class ContactFormComponent extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -30,13 +32,16 @@ export default class ContactFormComponent extends PureComponent {
     }
 
     _saveContactItem() {
+        const { pushAction } = this.props;
+
         contactService.saveContact(this.state.contactItem);
 
-        PubSub.publish(events.NAV_EVENT, '/');
+        pushAction('/');
     }
 
     _navBack() {
-        PubSub.publish(events.GO_BACK);
+        const { goBackAction } = this.props;
+        goBackAction();
     }
 
     render() {
@@ -49,3 +54,17 @@ export default class ContactFormComponent extends PureComponent {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return { contactDetail: state.contactReducer.selectedContact };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        contactActions: bindActionCreators(contactActions, dispatch),
+        goBackAction: bindActionCreators(routeActions.goBack, dispatch),
+        pushAction: bindActionCreators(routeActions.push, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactFormComponent);

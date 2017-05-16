@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
-import PubSub from 'pubsub-js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import * as events from '../configs/events';
+import * as routeActions from '../redux/actions/routeActions';
 
-export default class ContactItemComponent extends PureComponent {
+class ContactItemComponent extends PureComponent {
 
     _showDetail() {
         const { id } = this.props.contactItem;
-        PubSub.publish(events.NAV_EVENT, `contact-detail/${id}`);
+        const { pushAction } = this.props;
+        pushAction(`contact-detail/${id}`);
     }
 
     render() {
@@ -23,3 +25,11 @@ export default class ContactItemComponent extends PureComponent {
         );
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        pushAction: bindActionCreators(routeActions.push, dispatch)
+    };
+};
+
+export default connect(null, mapDispatchToProps)(ContactItemComponent);

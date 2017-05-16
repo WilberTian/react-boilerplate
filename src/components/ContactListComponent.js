@@ -1,19 +1,21 @@
 import React, { PureComponent } from 'react';
-import PubSub from 'pubsub-js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as contactActions from '../redux/actions/contactActions';
 import contactService from '../services/contactService';
 import ContactItemComponent from './ContactItemComponent';
-import * as actions from '../configs/actions';
 
-export default class ContactListComponent extends PureComponent {
+class ContactListComponent extends PureComponent {
 
     componentDidMount() {
         this._getContactList();
     }
 
     async _getContactList() {
+        const { getContactListAction } = this.props;
         const data = await contactService.getContactList();
-        PubSub.publish(actions.GET_CONTACT_LIST, data.list);
+        getContactListAction(data.list);
     }
 
     render() {
@@ -28,3 +30,15 @@ export default class ContactListComponent extends PureComponent {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return { contactList: state.contactReducer.contactList };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getContactListAction: bindActionCreators(contactActions.getContactList, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactListComponent);

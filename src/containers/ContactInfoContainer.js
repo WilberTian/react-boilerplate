@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as _contactActions from '../redux/actions/contactActions';
-import * as _routeActions from '../redux/actions/routeActions';
+import * as contactActions from '../redux/actions/contactActions';
+import * as routeActions from '../redux/actions/routeActions';
 import contactService from '../services/contactService';
 
 
@@ -15,10 +15,10 @@ class ContactInfoContainer extends PureComponent {
 
     async _getContactDetail() {
         const params = this.props.params;
-        const { getContactDetail } = this.props.contactActions;
+        const { getContactDetailAction } = this.props;
         const data = await contactService.getContactDetail(params.id);
 
-        getContactDetail(data.contact);
+        getContactDetailAction(data.contact);
     }
 
     async _saveContact() {
@@ -30,17 +30,17 @@ class ContactInfoContainer extends PureComponent {
     }
 
     _navContactList() {
-        const { push } = this.props.routeActions;
-        push('/');
+        const { pushAction } = this.props;
+        pushAction('/');
 
-        const { clearContactDetail } = this.props.contactActions;
-        clearContactDetail();
+        const { clearContactDetailAction } = this.props;
+        clearContactDetailAction();
     }
 
     _navContactEdit() {
         const { id } = this.props.contactDetail;
-        const { push } = this.props.routeActions;
-        push(`contact-edit/${id}`);
+        const { pushAction } = this.props;
+        pushAction(`contact-edit/${id}`);
     }
 
     render() {
@@ -62,8 +62,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        contactActions: bindActionCreators(_contactActions, dispatch),
-        routeActions: bindActionCreators(_routeActions, dispatch)
+        clearContactDetailAction: bindActionCreators(contactActions.clearContactDetail, dispatch),
+        getContactDetailAction: bindActionCreators(contactActions.getContactDetail, dispatch),
+        pushAction: bindActionCreators(routeActions.push, dispatch)
     };
 };
 
