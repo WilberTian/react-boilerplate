@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as contactActions from '../redux/actions/contactActions';
@@ -60,12 +59,10 @@ const mapStateToProps = (state) => {
     return { contactDetail: state.contactReducer.selectedContact };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        clearContactDetailAction: bindActionCreators(contactActions.clearContactDetail, dispatch),
-        getContactDetailAction: bindActionCreators(contactActions.getContactDetail, dispatch),
-        pushAction: bindActionCreators(routeActions.push, dispatch)
-    };
+const mapDispatchToProps = {
+    clearContactDetailAction: contactActions.clearContactDetail,
+    getContactDetailAction: contactActions.getContactDetail,
+    pushAction: routeActions.push
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactInfoContainer);

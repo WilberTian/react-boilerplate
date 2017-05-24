@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as routeActions from '../redux/actions/routeActions';
@@ -22,8 +21,6 @@ class ContactListContainer extends PureComponent {
     }
 }
 
-export default connect(null, (dispatch) => {
-    return {
-        pushAction: bindActionCreators(routeActions.push, dispatch)
-    };
+export default connect(null, {
+    pushAction: routeActions.push
 })(ContactListContainer);

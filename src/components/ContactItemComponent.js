@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as routeActions from '../redux/actions/routeActions';
@@ -26,10 +25,8 @@ class ContactItemComponent extends PureComponent {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        pushAction: bindActionCreators(routeActions.push, dispatch)
-    };
+const mapDispatchToProps = {
+    pushAction: routeActions.push
 };
 
 export default connect(null, mapDispatchToProps)(ContactItemComponent);

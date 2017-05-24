@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as contactActions from '../redux/actions/contactActions';
@@ -35,10 +34,8 @@ const mapStateToProps = (state) => {
     return { contactList: state.contactReducer.contactList };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getContactListAction: bindActionCreators(contactActions.getContactList, dispatch)
-    };
+const mapDispatchToProps = {
+    getContactListAction: contactActions.getContactList
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactListComponent);
