@@ -53,12 +53,14 @@ module.exports = {
                 include: [
                     path.resolve(rootPath, 'src'),
                 ],
-                loader: 'eslint-loader',
+                use: 'eslint-loader',
             },
             {
                 test: /\.js?$/,
-                exclude: /node_modules/,
-                loader: ['babel-loader']
+                exclude: [
+                    path.resolve(rootPath, 'node_modules'),
+                ],
+                use: ['babel-loader']
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -72,9 +74,6 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                include: [
-                    path.resolve(rootPath, 'src'),
-                ],
                 use: [
                     'style-loader',
                     'css-loader',
@@ -83,9 +82,6 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                include: [
-                    path.resolve(rootPath, 'src'),
-                ],
                 use: [
                     'style-loader',
                     'css-loader',
@@ -100,6 +96,14 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
+
+        /*
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        */
 
         new webpack.optimize.CommonsChunkPlugin({
             name: "common",
@@ -126,7 +130,7 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['*', '.js', '.css', '.html'],
+        extensions: ['*', '.js', '.css', '.less', '.html'],
         modules: ['src', 'node_modules'],
         alias: { }
     }

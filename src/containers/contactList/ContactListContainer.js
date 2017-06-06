@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
-import * as routeActions from '../redux/actions/routeActions';
+import * as routeActions from '../../redux/actions/routeActions';
 
-import ContactListComponent from '../components/ContactListComponent';
+import ContactListComponent from './components/ContactListComponent';
+
+import './contact-list-container.less';
 
 class ContactListContainer extends PureComponent {
     _navAddContact() {
@@ -13,8 +16,8 @@ class ContactListContainer extends PureComponent {
 
     render() {
         return (
-            <div>
-                <button onClick={::this._navAddContact}>Add</button>
+            <div className="contact-list-container">
+                <Button className="add-contact-btn" type="primary" onClick={::this._navAddContact}>Add</Button>
                 <ContactListComponent />
             </div>
         );

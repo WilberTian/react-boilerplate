@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import ContactFormComponent from '../components/ContactFormComponent';
+import ContactFormComponent from './components/ContactFormComponent';
 
 export default class ContactFormContainer extends PureComponent {
 

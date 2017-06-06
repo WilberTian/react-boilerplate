@@ -1,7 +1,7 @@
 import App from '../containers/common/App';
-import ContactInfoContainer from '../containers/ContactInfoContainer';
-import ContactListContainer from '../containers/ContactListContainer';
-import ContactFormContainer from '../containers/ContactFormContainer';
+import ContactInfoContainer from '../containers/contactInfo/ContactInfoContainer';
+import ContactListContainer from '../containers/contactList/ContactListContainer';
+import ContactFormContainer from '../containers/contactForm/ContactFormContainer';
 import NotFound from './NotFound';
 
 const ContactDetailRoute = {

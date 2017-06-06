@@ -3,5 +3,6 @@
     ["es2015", { "modules": false }],
     "react",
     "stage-0"
-  ]
+  ],
+  "plugins": [["import", { "style": "css", "libraryName": "antd" }]]
 }
